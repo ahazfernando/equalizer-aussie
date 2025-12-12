@@ -6,7 +6,6 @@
 
 @layer base {
   :root {
-    /* Equalizer RV Brand Colors - Warm Luxury Palette */
     --background: 40 30% 98%;
     --foreground: 220 15% 15%;
     
@@ -37,7 +36,6 @@
     
     --radius: 0.75rem;
     
-    /* Custom Equalizer RV tokens */
     --sage: 155 35% 42%;
     --sage-light: 155 30% 85%;
     --sage-dark: 155 40% 30%;
@@ -48,7 +46,6 @@
     --warm-gray: 30 8% 60%;
     --gold: 38 80% 55%;
     
-    /* Sidebar */
     --sidebar-background: 220 12% 18%;
     --sidebar-foreground: 40 20% 95%;
     --sidebar-primary: 155 35% 50%;
@@ -106,7 +103,6 @@
   
   body {
     @apply bg-background text-foreground font-sans antialiased;
-    font-feature-settings: "rlig" 1, "calt" 1;
   }
   
   h1, h2, h3, h4, h5, h6 {
@@ -115,7 +111,6 @@
 }
 
 @layer components {
-  /* Premium Card Styles */
   .card-premium {
     @apply bg-card rounded-2xl border border-border/50 shadow-md transition-all duration-300;
   }
@@ -124,36 +119,33 @@
     @apply shadow-xl -translate-y-1;
   }
   
-  /* Hero Section Styles */
   .hero-gradient {
-    background: linear-gradient(135deg, hsl(220 12% 22% / 0.85), hsl(220 12% 22% / 0.5));
+    background: linear-gradient(135deg, hsla(220, 12%, 22%, 0.85), hsla(220, 12%, 22%, 0.5));
   }
   
   .hero-text-shadow {
-    text-shadow: 0 2px 20px hsl(220 15% 15% / 0.3);
+    text-shadow: 0 2px 20px hsla(220, 15%, 15%, 0.3);
   }
   
-  /* Sage Accent Styles */
   .sage-gradient {
-    background: linear-gradient(135deg, hsl(155 35% 42%), hsl(155 40% 35%));
+    background: linear-gradient(135deg, hsl(155, 35%, 42%), hsl(155, 40%, 35%));
   }
   
   .sage-glow {
-    box-shadow: 0 0 40px hsl(155 35% 42% / 0.2);
+    box-shadow: 0 0 40px hsla(155, 35%, 42%, 0.2);
   }
   
-  /* Trust Badge Styles */
   .trust-badge {
     @apply flex items-center gap-3 p-4 rounded-xl bg-secondary/50 border border-border/30;
   }
   
-  /* Navigation Styles */
   .nav-link {
     @apply relative text-foreground/80 font-medium transition-colors duration-200 hover:text-foreground;
   }
   
   .nav-link::after {
-    @apply content-[''] absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300;
+    content: '';
+    @apply absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300;
   }
   
   .nav-link:hover::after,
@@ -161,32 +153,28 @@
     @apply w-full;
   }
   
-  /* RV Card Styles */
   .rv-card {
-    @apply card-premium overflow-hidden group;
+    @apply card-premium overflow-hidden;
   }
   
   .rv-card-image {
-    @apply w-full aspect-[4/3] object-cover transition-transform duration-500 group-hover:scale-105;
+    @apply w-full aspect-[4/3] object-cover transition-transform duration-500;
   }
   
-  /* Form Styles */
+  .rv-card:hover .rv-card-image {
+    @apply scale-105;
+  }
+  
   .form-input-premium {
-    @apply w-full px-4 py-3 rounded-xl border border-border bg-card text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all duration-200;
+    @apply w-full px-4 py-3 rounded-xl border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all duration-200;
   }
   
-  /* Finance Calculator Styles */
   .calculator-panel {
     @apply bg-card rounded-2xl p-6 md:p-8 border border-border shadow-lg;
   }
   
   .calculator-result {
     @apply text-4xl md:text-5xl font-heading font-bold text-accent;
-  }
-  
-  /* Admin Dashboard Styles */
-  .admin-sidebar {
-    @apply fixed left-0 top-0 h-full w-64 bg-sidebar text-sidebar-foreground p-6;
   }
   
   .admin-card {
@@ -197,31 +185,22 @@
     @apply text-3xl font-heading font-bold text-foreground;
   }
   
-  /* Badge Styles */
   .badge-sage {
-    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium;
-    background: hsl(155 35% 42% / 0.1);
-    color: hsl(155 40% 35%);
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-accent/10 text-accent;
   }
   
   .badge-gold {
     @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium;
-    color: hsl(38 80% 45%);
-    background: hsl(38 80% 55% / 0.1);
+    color: hsl(38, 80%, 45%);
+    background: hsla(38, 80%, 55%, 0.1);
   }
   
-  /* Section Styles */
   .section-padding {
     @apply py-16 md:py-24 lg:py-32;
-  }
-  
-  .container-padding {
-    @apply px-4 sm:px-6 lg:px-8;
   }
 }
 
 @layer utilities {
-  /* Animation Utilities */
   .animate-fade-up {
     animation: fadeUp 0.6s ease-out forwards;
   }
@@ -229,25 +208,6 @@
   .animate-fade-in {
     animation: fadeIn 0.5s ease-out forwards;
   }
-  
-  .animate-slide-in-left {
-    animation: slideInLeft 0.5s ease-out forwards;
-  }
-  
-  .animate-scale-in {
-    animation: scaleIn 0.4s ease-out forwards;
-  }
-  
-  .animate-float {
-    animation: float 6s ease-in-out infinite;
-  }
-  
-  /* Stagger delays */
-  .delay-100 { animation-delay: 100ms; }
-  .delay-200 { animation-delay: 200ms; }
-  .delay-300 { animation-delay: 300ms; }
-  .delay-400 { animation-delay: 400ms; }
-  .delay-500 { animation-delay: 500ms; }
 }
 
 @keyframes fadeUp {
@@ -264,51 +224,4 @@
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
-}
-
-@keyframes slideInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes scaleIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: hsl(var(--muted));
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: hsl(var(--muted-foreground) / 0.3);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--muted-foreground) / 0.5);
 }
