@@ -5,10 +5,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Caravans from "./pages/Caravans";
 import CaravanDetail from "./pages/CaravanDetail";
-import Models from "./pages/Models";
-import ModelDetail from "./pages/ModelDetail";
-import ColourThemes from "./pages/ColourThemes";
-import OurStory from "./pages/OurStory";
 import Finance from "./pages/Finance";
 import Reviews from "./pages/Reviews";
 import About from "./pages/About";
@@ -31,10 +27,6 @@ const App = () => (
           <Route path="/" element={<Home />} />
           <Route path="/caravans" element={<Caravans />} />
           <Route path="/caravans/:id" element={<CaravanDetail />} />
-          <Route path="/models" element={<Models />} />
-          <Route path="/models/:id" element={<ModelDetail />} />
-          <Route path="/colour-themes" element={<ColourThemes />} />
-          <Route path="/our-story" element={<OurStory />} />
           <Route path="/build" element={<BuildYourRV />} />
           <Route path="/finance" element={<Finance />} />
           <Route path="/reviews" element={<Reviews />} />
