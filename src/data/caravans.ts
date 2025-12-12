@@ -1,3 +1,9 @@
+export interface CaravanSpec {
+  category: string;
+  icon: string;
+  items: string[];
+}
+
 export interface Caravan {
   id: string;
   name: string;
@@ -9,12 +15,10 @@ export interface Caravan {
   tare: string;
   atm: string;
   features: string[];
+  highlights: string[];
   description: string;
   images: string[];
-  specs: {
-    category: string;
-    items: { label: string; value: string }[];
-  }[];
+  specs: CaravanSpec[];
   variants: { name: string; priceModifier: number }[];
   available: boolean;
   featured: boolean;
@@ -22,15 +26,21 @@ export interface Caravan {
 
 export const caravans: Caravan[] = [
   {
-    id: "explorer-21",
-    name: "Explorer 21",
-    series: "Explorer",
-    tagline: "Compact Luxury for Couples",
+    id: "cruzer",
+    name: "Cruzer",
+    series: "Cruzer",
+    tagline: "The Perfect Entry Point",
     price: 89990,
     length: "21ft",
     berth: 2,
     tare: "2,450kg",
     atm: "3,200kg",
+    highlights: [
+      "Compact yet spacious design",
+      "Off-road capable suspension",
+      "Solar power ready",
+      "Premium kitchen package"
+    ],
     features: [
       "Queen Island Bed",
       "Full Ensuite",
@@ -39,33 +49,91 @@ export const caravans: Caravan[] = [
       "150L Fresh Water",
       "LED Lighting Throughout"
     ],
-    description: "The Explorer 21 is the perfect entry into luxury touring. Designed for couples who refuse to compromise on comfort, this compact tourer delivers everything you need in an easy-to-tow package. Australian engineered and built to handle our unique conditions.",
+    description: "The Cruzer combines compact convenience with premium features, making it the ideal choice for couples and weekend adventurers seeking quality without compromise.",
     images: ["/placeholder.svg", "/placeholder.svg", "/placeholder.svg"],
     specs: [
       {
-        category: "Dimensions",
+        category: "Electrical",
+        icon: "Zap",
         items: [
-          { label: "External Length", value: "6.4m (21ft)" },
-          { label: "External Width", value: "2.5m" },
-          { label: "External Height", value: "2.95m" },
-          { label: "Internal Height", value: "1.98m" }
+          "200W Solar Panel",
+          "200Ah Lithium Battery",
+          "2000W Inverter/Charger",
+          "30A DC-DC Charger",
+          "LED Strip Lighting Throughout",
+          "USB Charging Points x6",
+          "12V/240V Power Outlets",
+          "Battery Management System"
         ]
       },
       {
-        category: "Weights",
+        category: "Chassis",
+        icon: "Truck",
         items: [
-          { label: "Tare Weight", value: "2,450kg" },
-          { label: "ATM", value: "3,200kg" },
-          { label: "Payload", value: "750kg" },
-          { label: "Ball Weight", value: "180kg" }
+          "Hot-dipped galvanised chassis",
+          "Independent coil suspension",
+          "Off-road tyres 265/75R16",
+          "Spare wheel & carrier",
+          "DO35 coupling",
+          "Dual shock absorbers",
+          "Stone guard protection",
+          "Recovery points front & rear"
         ]
       },
       {
-        category: "Tanks",
+        category: "Appliances",
+        icon: "UtensilsCrossed",
         items: [
-          { label: "Fresh Water", value: "150L" },
-          { label: "Grey Water", value: "100L" },
-          { label: "Hot Water", value: "20L Gas" }
+          "190L 3-way fridge",
+          "4 burner gas cooktop",
+          "Grill oven combo",
+          "Rangehood with light",
+          "Microwave cavity",
+          "Diesel heater",
+          "Dometic air conditioner",
+          "TV bracket with 12V point"
+        ]
+      },
+      {
+        category: "Internal",
+        icon: "Home",
+        items: [
+          "Queen island bed",
+          "Innerspring mattress",
+          "Overhead storage lockers",
+          "Full-height wardrobe",
+          "Dinette seating area",
+          "Premium vinyl flooring",
+          "Block-out blinds",
+          "USB points at bedhead"
+        ]
+      },
+      {
+        category: "External",
+        icon: "Sun",
+        items: [
+          "Roll-out awning 4m",
+          "External shower",
+          "Gas bayonet",
+          "Picnic table rail",
+          "LED awning strip",
+          "External speakers",
+          "Jerry can holders x2",
+          "Mud flaps"
+        ]
+      },
+      {
+        category: "Plumbing",
+        icon: "Droplets",
+        items: [
+          "150L fresh water tank",
+          "100L grey water tank",
+          "20L gas hot water",
+          "Water tank gauge",
+          "Mains water inlet",
+          "Water pump with filter",
+          "External tap",
+          "Toilet cassette"
         ]
       }
     ],
@@ -78,15 +146,21 @@ export const caravans: Caravan[] = [
     featured: true
   },
   {
-    id: "outback-23",
-    name: "Outback 23",
-    series: "Outback",
+    id: "rebel",
+    name: "Rebel",
+    series: "Rebel",
     tagline: "Built for Adventure",
     price: 119990,
     length: "23ft",
     berth: 4,
     tare: "2,850kg",
     atm: "3,500kg",
+    highlights: [
+      "Extreme off-road capability",
+      "Extended battery capacity",
+      "Family-friendly layout",
+      "External slide-out kitchen"
+    ],
     features: [
       "Off-Road Suspension",
       "Dual Batteries",
@@ -95,33 +169,91 @@ export const caravans: Caravan[] = [
       "Kids Bunks",
       "Premium Audio System"
     ],
-    description: "The Outback 23 is designed for families who want to explore Australia's rugged beauty without sacrificing comfort. With genuine off-road capability and smart family-friendly layouts, this caravan opens up a world of adventure.",
+    description: "The Rebel is designed for families who want to explore Australia's rugged beauty without sacrificing comfort. With genuine off-road capability and smart family-friendly layouts, this caravan opens up a world of adventure.",
     images: ["/placeholder.svg", "/placeholder.svg", "/placeholder.svg"],
     specs: [
       {
-        category: "Dimensions",
+        category: "Electrical",
+        icon: "Zap",
         items: [
-          { label: "External Length", value: "7.0m (23ft)" },
-          { label: "External Width", value: "2.5m" },
-          { label: "External Height", value: "3.05m" },
-          { label: "Internal Height", value: "1.98m" }
+          "300W Solar Panel",
+          "400Ah Lithium Battery",
+          "3000W Inverter/Charger",
+          "40A DC-DC Charger",
+          "LED Strip Lighting Throughout",
+          "USB Charging Points x8",
+          "12V/240V Power Outlets",
+          "Smart Battery Management"
         ]
       },
       {
-        category: "Weights",
+        category: "Chassis",
+        icon: "Truck",
         items: [
-          { label: "Tare Weight", value: "2,850kg" },
-          { label: "ATM", value: "3,500kg" },
-          { label: "Payload", value: "650kg" },
-          { label: "Ball Weight", value: "220kg" }
+          "Heavy-duty galvanised chassis",
+          "Cruisemaster XT suspension",
+          "All-terrain tyres 285/75R16",
+          "Dual spare wheels",
+          "DO35 coupling",
+          "Triple shock absorbers",
+          "Full underbody protection",
+          "Recovery points x4"
         ]
       },
       {
-        category: "Tanks",
+        category: "Appliances",
+        icon: "UtensilsCrossed",
         items: [
-          { label: "Fresh Water", value: "200L" },
-          { label: "Grey Water", value: "150L" },
-          { label: "Hot Water", value: "20L Gas/Electric" }
+          "220L compressor fridge",
+          "4 burner gas cooktop",
+          "Full oven",
+          "Rangehood with extractor",
+          "Microwave included",
+          "Diesel heater",
+          "Rooftop air conditioner",
+          "32\" Smart TV"
+        ]
+      },
+      {
+        category: "Internal",
+        icon: "Home",
+        items: [
+          "Queen island bed",
+          "Triple bunk system",
+          "Premium innerspring mattress",
+          "Full-height wardrobes x2",
+          "Club lounge seating",
+          "Premium timber flooring",
+          "Day/night blinds",
+          "Internal entertainment system"
+        ]
+      },
+      {
+        category: "External",
+        icon: "Sun",
+        items: [
+          "Dometic awning 5m",
+          "Slide-out BBQ kitchen",
+          "External fridge slide",
+          "Dual gas bayonets",
+          "LED strip lighting",
+          "Bluetooth speakers",
+          "Jerry can holders x4",
+          "Bike rack mounts"
+        ]
+      },
+      {
+        category: "Plumbing",
+        icon: "Droplets",
+        items: [
+          "200L fresh water tank",
+          "150L grey water tank",
+          "Gas/Electric hot water",
+          "Digital tank gauges",
+          "Mains water inlet",
+          "Dual pump system",
+          "External shower hot/cold",
+          "Cassette toilet"
         ]
       }
     ],
@@ -134,15 +266,21 @@ export const caravans: Caravan[] = [
     featured: true
   },
   {
-    id: "horizon-25",
-    name: "Horizon 25",
-    series: "Horizon",
-    tagline: "Spacious Touring Excellence",
+    id: "rogue",
+    name: "Rogue",
+    series: "Rogue",
+    tagline: "The Ultimate Touring Experience",
     price: 149990,
     length: "25ft",
     berth: 2,
     tare: "3,100kg",
     atm: "3,800kg",
+    highlights: [
+      "Full slide-out living",
+      "Residential kitchen",
+      "Premium finishes throughout",
+      "Ultimate off-grid capability"
+    ],
     features: [
       "Full Slide-Out",
       "Residential Kitchen",
@@ -151,33 +289,91 @@ export const caravans: Caravan[] = [
       "Washing Machine Ready",
       "Club Lounge"
     ],
-    description: "The Horizon 25 redefines what's possible in touring comfort. With an innovative slide-out design, you'll enjoy residential-sized living space while parked, then effortlessly pack down for the road ahead.",
+    description: "The Rogue redefines what's possible in touring comfort. With an innovative slide-out design, you'll enjoy residential-sized living space while parked, then effortlessly pack down for the road ahead.",
     images: ["/placeholder.svg", "/placeholder.svg", "/placeholder.svg"],
     specs: [
       {
-        category: "Dimensions",
+        category: "Electrical",
+        icon: "Zap",
         items: [
-          { label: "External Length", value: "7.6m (25ft)" },
-          { label: "External Width", value: "2.5m (3.2m extended)" },
-          { label: "External Height", value: "3.15m" },
-          { label: "Internal Height", value: "1.98m" }
+          "400W Solar Panel",
+          "600Ah Lithium Battery",
+          "5000W Inverter/Charger",
+          "50A DC-DC Charger",
+          "Smart LED Lighting",
+          "USB-C Fast Charging x10",
+          "12V/240V Power Throughout",
+          "Victron Battery System"
         ]
       },
       {
-        category: "Weights",
+        category: "Chassis",
+        icon: "Truck",
         items: [
-          { label: "Tare Weight", value: "3,100kg" },
-          { label: "ATM", value: "3,800kg" },
-          { label: "Payload", value: "700kg" },
-          { label: "Ball Weight", value: "260kg" }
+          "Premium galvanised chassis",
+          "Cruisemaster ATX suspension",
+          "Cooper AT3 tyres 285/75R16",
+          "Dual spare wheels",
+          "DO35 premium coupling",
+          "Quad shock absorbers",
+          "Checker plate underbody",
+          "Integrated recovery kit"
         ]
       },
       {
-        category: "Tanks",
+        category: "Appliances",
+        icon: "UtensilsCrossed",
         items: [
-          { label: "Fresh Water", value: "250L" },
-          { label: "Grey Water", value: "180L" },
-          { label: "Hot Water", value: "25L Gas/Electric" }
+          "280L compressor fridge",
+          "Induction cooktop",
+          "Full-size oven",
+          "Premium rangehood",
+          "Convection microwave",
+          "Truma diesel heating",
+          "Dual zone air conditioning",
+          "43\" Smart TV with satellite"
+        ]
+      },
+      {
+        category: "Internal",
+        icon: "Home",
+        items: [
+          "King island bed",
+          "Pillow-top mattress",
+          "Walk-in wardrobe",
+          "Full-size bathroom",
+          "Leather club lounge",
+          "Engineered timber flooring",
+          "Electric blinds",
+          "Surround sound system"
+        ]
+      },
+      {
+        category: "External",
+        icon: "Sun",
+        items: [
+          "Thule awning 6m",
+          "Full outdoor kitchen",
+          "Dual fridge slides",
+          "Multiple gas bayonets",
+          "Programmable LED lighting",
+          "Marine-grade speakers",
+          "Storage boxes x4",
+          "Rear view camera system"
+        ]
+      },
+      {
+        category: "Plumbing",
+        icon: "Droplets",
+        items: [
+          "250L fresh water tank",
+          "180L grey water tank",
+          "Continuous hot water",
+          "Smart tank monitoring",
+          "Water filtration system",
+          "Premium pump system",
+          "Dual external showers",
+          "Ceramic toilet"
         ]
       }
     ],
@@ -188,117 +384,6 @@ export const caravans: Caravan[] = [
     ],
     available: true,
     featured: true
-  },
-  {
-    id: "summit-27",
-    name: "Summit 27",
-    series: "Summit",
-    tagline: "The Ultimate Touring Experience",
-    price: 189990,
-    length: "27ft",
-    berth: 4,
-    tare: "3,450kg",
-    atm: "4,200kg",
-    features: [
-      "Dual Slide-Outs",
-      "Separate Bedroom",
-      "Full-Size Bathroom",
-      "600W Solar",
-      "Integrated Inverter",
-      "Premium Everything"
-    ],
-    description: "The Summit 27 is our flagship model, representing the pinnacle of Australian caravan design. Every detail has been considered, every material chosen for quality and longevity. This is not just a caravan – it's a mobile home.",
-    images: ["/placeholder.svg", "/placeholder.svg", "/placeholder.svg"],
-    specs: [
-      {
-        category: "Dimensions",
-        items: [
-          { label: "External Length", value: "8.2m (27ft)" },
-          { label: "External Width", value: "2.5m (3.8m extended)" },
-          { label: "External Height", value: "3.2m" },
-          { label: "Internal Height", value: "2.0m" }
-        ]
-      },
-      {
-        category: "Weights",
-        items: [
-          { label: "Tare Weight", value: "3,450kg" },
-          { label: "ATM", value: "4,200kg" },
-          { label: "Payload", value: "750kg" },
-          { label: "Ball Weight", value: "300kg" }
-        ]
-      },
-      {
-        category: "Tanks",
-        items: [
-          { label: "Fresh Water", value: "300L" },
-          { label: "Grey Water", value: "220L" },
-          { label: "Hot Water", value: "30L Gas/Electric" }
-        ]
-      }
-    ],
-    variants: [
-      { name: "Standard", priceModifier: 0 },
-      { name: "Platinum Edition", priceModifier: 25000 },
-      { name: "Off-Grid Package", priceModifier: 18000 }
-    ],
-    available: true,
-    featured: false
-  },
-  {
-    id: "compact-18",
-    name: "Compact 18",
-    series: "Compact",
-    tagline: "Big Adventure, Small Package",
-    price: 69990,
-    length: "18ft",
-    berth: 2,
-    tare: "1,850kg",
-    atm: "2,500kg",
-    features: [
-      "Lightweight Design",
-      "Pop-Top Roof",
-      "Compact Kitchen",
-      "100W Solar",
-      "Easy Towing",
-      "Quality Finishes"
-    ],
-    description: "Don't let the size fool you – the Compact 18 delivers exceptional value and surprising spaciousness. Perfect for weekenders and those new to caravanning who want quality without compromise.",
-    images: ["/placeholder.svg", "/placeholder.svg", "/placeholder.svg"],
-    specs: [
-      {
-        category: "Dimensions",
-        items: [
-          { label: "External Length", value: "5.5m (18ft)" },
-          { label: "External Width", value: "2.4m" },
-          { label: "External Height", value: "2.8m" },
-          { label: "Internal Height", value: "1.95m" }
-        ]
-      },
-      {
-        category: "Weights",
-        items: [
-          { label: "Tare Weight", value: "1,850kg" },
-          { label: "ATM", value: "2,500kg" },
-          { label: "Payload", value: "650kg" },
-          { label: "Ball Weight", value: "140kg" }
-        ]
-      },
-      {
-        category: "Tanks",
-        items: [
-          { label: "Fresh Water", value: "95L" },
-          { label: "Grey Water", value: "70L" },
-          { label: "Hot Water", value: "15L Gas" }
-        ]
-      }
-    ],
-    variants: [
-      { name: "Standard", priceModifier: 0 },
-      { name: "Adventure Ready", priceModifier: 5000 }
-    ],
-    available: true,
-    featured: false
   }
 ];
 
