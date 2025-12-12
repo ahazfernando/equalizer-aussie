@@ -1,14 +1,11 @@
-import { Link } from "react-router-dom";
+import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, Shield, Wrench, Award, MapPin, Star, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Layout } from "@/components/layout/Layout";
 import { CaravanCard } from "@/components/caravans/CaravanCard";
 import { ReviewCard } from "@/components/reviews/ReviewCard";
 import { getFeaturedCaravans } from "@/data/caravans";
 import { reviews } from "@/data/reviews";
-import heroImage from "@/assets/hero-caravan.jpg";
-import lifestyleImage1 from "@/assets/caravan-lifestyle-1.jpg";
-import lifestyleImage2 from "@/assets/caravan-lifestyle-2.jpg";
 
 const trustPillars = [
   {
@@ -38,14 +35,16 @@ export default function Home() {
   const featuredReviews = reviews.slice(0, 3);
 
   return (
-    <Layout>
+    <>
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center">
         <div className="absolute inset-0">
-          <img
-            src={heroImage}
+          <Image
+            src="/images/hero-caravan.jpg"
             alt="Premium Equalizer RV Caravan in Australian landscape"
-            className="w-full h-full object-cover"
+            fill
+            className="object-cover"
+            priority
           />
           <div className="absolute inset-0 hero-gradient" />
         </div>
@@ -70,13 +69,13 @@ export default function Home() {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link to="/caravans">
+              <Link href="/caravans">
                 <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground px-8">
                   Explore Our Range
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
               </Link>
-              <Link to="/contact">
+              <Link href="/contact">
                 <Button size="lg" variant="outline" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 px-8">
                   Book a Viewing
                 </Button>
@@ -132,7 +131,7 @@ export default function Home() {
               </p>
             </div>
             <Link
-              to="/caravans"
+              href="/caravans"
               className="inline-flex items-center gap-2 text-accent font-medium hover:gap-3 transition-all"
             >
               View All Models
@@ -169,7 +168,7 @@ export default function Home() {
               
               <p className="text-primary-foreground/80 leading-relaxed">
                 Every Equalizer RV is engineered from the ground up to handle 
-                Australia's diverse terrain and climate. From the red dust of the 
+                Australia&apos;s diverse terrain and climate. From the red dust of the 
                 outback to the salt spray of coastal highways, our caravans are 
                 built to go wherever your adventure takes you.
               </p>
@@ -190,7 +189,7 @@ export default function Home() {
                 ))}
               </ul>
 
-              <Link to="/about">
+              <Link href="/about">
                 <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
                   Learn Our Story
                   <ArrowRight className="w-5 h-5 ml-2" />
@@ -201,16 +200,20 @@ export default function Home() {
             <div className="relative">
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-4">
-                  <img
-                    src={lifestyleImage1}
+                  <Image
+                    src="/images/caravan-lifestyle-1.jpg"
                     alt="Caravan adventure in Australian outback"
+                    width={400}
+                    height={533}
                     className="rounded-2xl w-full aspect-[3/4] object-cover"
                   />
                 </div>
                 <div className="space-y-4 pt-8">
-                  <img
-                    src={lifestyleImage2}
+                  <Image
+                    src="/images/caravan-lifestyle-2.jpg"
                     alt="Couple relaxing by their caravan at sunset"
+                    width={400}
+                    height={533}
                     className="rounded-2xl w-full aspect-[3/4] object-cover"
                   />
                 </div>
@@ -265,7 +268,7 @@ export default function Home() {
           </div>
 
           <div className="text-center mt-12">
-            <Link to="/reviews">
+            <Link href="/reviews">
               <Button variant="outline" size="lg">
                 Read All Reviews
                 <ArrowRight className="w-4 h-4 ml-2" />
@@ -286,12 +289,12 @@ export default function Home() {
             Our team is ready to help you find the perfect caravan for your lifestyle.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/contact">
+            <Link href="/contact">
               <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground px-8">
                 Book a Viewing
               </Button>
             </Link>
-            <Link to="/build">
+            <Link href="/build">
               <Button size="lg" variant="outline" className="border-accent-foreground/30 text-accent-foreground hover:bg-accent-foreground/10 px-8">
                 Build Your Dream RV
               </Button>
@@ -299,6 +302,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-    </Layout>
+    </>
   );
 }

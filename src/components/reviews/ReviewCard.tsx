@@ -1,6 +1,6 @@
 import { Star, Quote, MapPin } from "lucide-react";
 import { Review } from "@/data/reviews";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 interface ReviewCardProps {
   review: Review;
@@ -50,7 +50,7 @@ export function ReviewCard({ review, showCaravanLink = true }: ReviewCardProps) 
         </div>
         {showCaravanLink && (
           <Link
-            to={`/caravans/${review.caravanId}`}
+            href={`/caravans/${review.caravanId}`}
             className="text-sm text-accent hover:underline"
           >
             {review.caravanModel}

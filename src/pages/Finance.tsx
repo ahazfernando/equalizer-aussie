@@ -1,4 +1,3 @@
-import { Layout } from "@/components/layout/Layout";
 import { FinanceCalculator } from "@/components/finance/FinanceCalculator";
 import { Check, HelpCircle } from "lucide-react";
 import {
@@ -42,7 +41,7 @@ const faqs = [
 
 export default function Finance() {
   return (
-    <Layout>
+    <>
       {/* Hero */}
       <section className="bg-secondary/30 py-16 md:py-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -70,7 +69,7 @@ export default function Finance() {
                   Finance Made Simple
                 </h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  We've partnered with Australia's leading finance providers to offer 
+                  We&apos;ve partnered with Australia&apos;s leading finance providers to offer 
                   you competitive rates and flexible terms. Our dedicated finance team 
                   will guide you through the process from application to approval.
                 </p>
@@ -146,6 +145,6 @@ export default function Finance() {
           </div>
         </div>
       </section>
-    </Layout>
+    </>
   );
 }

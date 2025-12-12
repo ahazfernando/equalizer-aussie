@@ -1,5 +1,6 @@
+"use client";
+
 import { useState } from "react";
-import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -48,22 +49,22 @@ export default function Contact() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Thank you for your enquiry! We'll be in touch within 24 hours.");
+    toast.success("Thank you for your enquiry! We&apos;ll be in touch within 24 hours.");
     setFormData({ name: "", email: "", phone: "", interest: "", message: "" });
   };
 
   return (
-    <Layout>
+    <>
       {/* Hero */}
       <section className="bg-secondary/30 py-16 md:py-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
             <p className="text-accent font-medium mb-2">Get in Touch</p>
             <h1 className="font-heading text-4xl sm:text-5xl font-bold text-foreground mb-4">
-              Let's Start Your Adventure
+              Let&apos;s Start Your Adventure
             </h1>
             <p className="text-muted-foreground text-lg">
-              Whether you're ready to buy, want to book a viewing, or just have 
+              Whether you&apos;re ready to buy, want to book a viewing, or just have 
               questions, our friendly team is here to help.
             </p>
           </div>
@@ -142,7 +143,7 @@ export default function Contact() {
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="interest">I'm Interested In</Label>
+                      <Label htmlFor="interest">I&apos;m Interested In</Label>
                       <Select
                         value={formData.interest}
                         onValueChange={(value) => setFormData({ ...formData, interest: value })}
@@ -185,7 +186,7 @@ export default function Contact() {
 
                   <p className="text-xs text-muted-foreground text-center">
                     By submitting this form, you agree to our privacy policy. 
-                    We'll respond within 24 hours.
+                    We&apos;ll respond within 24 hours.
                   </p>
                 </form>
               </div>
@@ -193,6 +194,6 @@ export default function Contact() {
           </div>
         </div>
       </section>
-    </Layout>
+    </>
   );
 }

@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
+import Link from "next/link";
+import Image from "next/image";
 import { Star, ArrowRight } from "lucide-react";
 import { Caravan } from "@/data/caravans";
 import { getAverageRating, getReviewsByCaravan } from "@/data/reviews";
-import caravanInterior from "@/assets/caravan-interior.jpg";
 
 interface CaravanCardProps {
   caravan: Caravan;
@@ -14,11 +14,12 @@ export function CaravanCard({ caravan }: CaravanCardProps) {
 
   return (
     <div className="rv-card">
-      <div className="relative overflow-hidden">
-        <img
-          src={caravanInterior}
+      <div className="relative overflow-hidden aspect-[4/3]">
+        <Image
+          src="/images/caravan-interior.jpg"
           alt={caravan.name}
-          className="rv-card-image"
+          fill
+          className="object-cover"
         />
         {caravan.featured && (
           <span className="absolute top-4 left-4 badge-gold">
@@ -92,7 +93,7 @@ export function CaravanCard({ caravan }: CaravanCardProps) {
             </p>
           </div>
           <Link
-            to={`/caravans/${caravan.id}`}
+            href={`/caravans/${caravan.id}`}
             className="inline-flex items-center gap-2 text-accent font-medium hover:gap-3 transition-all"
           >
             View Details

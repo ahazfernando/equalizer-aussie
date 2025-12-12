@@ -1,5 +1,8 @@
-import { useParams, Link } from "react-router-dom";
-import { Layout } from "@/components/layout/Layout";
+"use client";
+
+import { useParams } from "next/navigation";
+import Link from "next/link";
+import Image from "next/image";
 import { ImageGallery } from "@/components/gallery/ImageGallery";
 import { FinanceCalculator } from "@/components/finance/FinanceCalculator";
 import { ReviewCard } from "@/components/reviews/ReviewCard";
@@ -8,38 +11,37 @@ import { getReviewsByCaravan, getAverageRating } from "@/data/reviews";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ChevronLeft, Star, Check, Phone, Calendar } from "lucide-react";
-import caravanInterior from "@/assets/caravan-interior.jpg";
-import heroCaravan from "@/assets/hero-caravan.jpg";
-import lifestyleImage1 from "@/assets/caravan-lifestyle-1.jpg";
-
 export default function CaravanDetail() {
-  const { id } = useParams();
+  const params = useParams();
+  const id = params?.id as string;
   const caravan = getCaravanById(id || "");
   const reviews = getReviewsByCaravan(id || "");
   const rating = getAverageRating(id || "");
 
   if (!caravan) {
     return (
-      <Layout>
-        <div className="container mx-auto px-4 py-20 text-center">
-          <h1 className="font-heading text-3xl font-bold mb-4">Caravan Not Found</h1>
-          <Link to="/caravans" className="text-accent hover:underline">
-            Back to Our Caravans
-          </Link>
-        </div>
-      </Layout>
+      <div className="container mx-auto px-4 py-20 text-center">
+        <h1 className="font-heading text-3xl font-bold mb-4">Caravan Not Found</h1>
+        <Link href="/caravans" className="text-accent hover:underline">
+          Back to Our Caravans
+        </Link>
+      </div>
     );
   }
 
-  const galleryImages = [heroCaravan, caravanInterior, lifestyleImage1];
+  const galleryImages = [
+    "/images/hero-caravan.jpg",
+    "/images/caravan-interior.jpg",
+    "/images/caravan-lifestyle-1.jpg"
+  ];
 
   return (
-    <Layout>
+    <>
       {/* Breadcrumb */}
       <div className="bg-secondary/30 py-4">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <Link
-            to="/caravans"
+            href="/caravans"
             className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
           >
             <ChevronLeft className="w-4 h-4" />
@@ -134,7 +136,7 @@ export default function CaravanDetail() {
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-3">
-                  <Link to="/contact" className="flex-1">
+                  <Link href="/contact" className="flex-1">
                     <Button className="w-full bg-accent hover:bg-accent/90 text-accent-foreground" size="lg">
                       <Calendar className="w-4 h-4 mr-2" />
                       Book a Viewing
@@ -240,6 +242,6 @@ export default function CaravanDetail() {
           </Tabs>
         </div>
       </section>
-    </Layout>
+    </>
   );
 }

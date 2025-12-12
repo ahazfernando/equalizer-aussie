@@ -1,5 +1,6 @@
+"use client";
+
 import { useState, useMemo } from "react";
-import { Layout } from "@/components/layout/Layout";
 import { CaravanCard } from "@/components/caravans/CaravanCard";
 import { caravans } from "@/data/caravans";
 import { Search, SlidersHorizontal, X } from "lucide-react";
@@ -81,7 +82,7 @@ export default function Caravans() {
   const hasActiveFilters = search || series !== "All Series" || berth !== "All Berths";
 
   return (
-    <Layout>
+    <>
       {/* Hero */}
       <section className="bg-secondary/30 py-16 md:py-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -212,6 +213,6 @@ export default function Caravans() {
           )}
         </div>
       </section>
-    </Layout>
+    </>
   );
 }

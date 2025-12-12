@@ -1,20 +1,18 @@
+"use client";
+
 import { useState } from "react";
-import { Layout } from "@/components/layout/Layout";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import heroCaravan from "@/assets/hero-caravan.jpg";
-import caravanInterior from "@/assets/caravan-interior.jpg";
-import lifestyleImage1 from "@/assets/caravan-lifestyle-1.jpg";
-import lifestyleImage2 from "@/assets/caravan-lifestyle-2.jpg";
+import Image from "next/image";
 
 const galleryImages = [
-  { src: heroCaravan, alt: "Equalizer RV caravan coastal view", category: "Exterior" },
-  { src: caravanInterior, alt: "Luxury caravan interior", category: "Interior" },
-  { src: lifestyleImage1, alt: "Caravan adventure outback", category: "Lifestyle" },
-  { src: lifestyleImage2, alt: "Sunset camping by the beach", category: "Lifestyle" },
-  { src: heroCaravan, alt: "Premium caravan design", category: "Exterior" },
-  { src: caravanInterior, alt: "Modern kitchen interior", category: "Interior" },
-  { src: lifestyleImage1, alt: "Red centre adventure", category: "Lifestyle" },
-  { src: lifestyleImage2, alt: "Coastal camping experience", category: "Lifestyle" },
+  { src: "/images/hero-caravan.jpg", alt: "Equalizer RV caravan coastal view", category: "Exterior" },
+  { src: "/images/caravan-interior.jpg", alt: "Luxury caravan interior", category: "Interior" },
+  { src: "/images/caravan-lifestyle-1.jpg", alt: "Caravan adventure outback", category: "Lifestyle" },
+  { src: "/images/caravan-lifestyle-2.jpg", alt: "Sunset camping by the beach", category: "Lifestyle" },
+  { src: "/images/hero-caravan.jpg", alt: "Premium caravan design", category: "Exterior" },
+  { src: "/images/caravan-interior.jpg", alt: "Modern kitchen interior", category: "Interior" },
+  { src: "/images/caravan-lifestyle-1.jpg", alt: "Red centre adventure", category: "Lifestyle" },
+  { src: "/images/caravan-lifestyle-2.jpg", alt: "Coastal camping experience", category: "Lifestyle" },
 ];
 
 const categories = ["All", "Exterior", "Interior", "Lifestyle"];
@@ -27,7 +25,7 @@ export default function Gallery() {
     : galleryImages.filter((img) => img.category === activeCategory);
 
   return (
-    <Layout>
+    <>
       {/* Hero */}
       <section className="bg-secondary/30 py-16 md:py-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -76,10 +74,11 @@ export default function Gallery() {
                     className="relative aspect-[4/3] rounded-xl overflow-hidden group animate-fade-up"
                     style={{ animationDelay: `${index * 50}ms` }}
                   >
-                    <img
+                    <Image
                       src={image.src}
                       alt={image.alt}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/20 transition-colors" />
                     <span className="absolute bottom-3 left-3 badge-sage opacity-0 group-hover:opacity-100 transition-opacity">
@@ -88,9 +87,11 @@ export default function Gallery() {
                   </button>
                 </DialogTrigger>
                 <DialogContent className="max-w-5xl p-0 overflow-hidden">
-                  <img
+                  <Image
                     src={image.src}
                     alt={image.alt}
+                    width={1200}
+                    height={800}
                     className="w-full h-auto"
                   />
                 </DialogContent>
@@ -99,6 +100,6 @@ export default function Gallery() {
           </div>
         </div>
       </section>
-    </Layout>
+    </>
   );
 }

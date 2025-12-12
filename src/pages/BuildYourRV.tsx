@@ -1,5 +1,6 @@
+"use client";
+
 import { useState } from "react";
-import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -96,7 +97,7 @@ export default function BuildYourRV() {
   };
 
   return (
-    <Layout>
+    <>
       {/* Hero */}
       <section className="bg-secondary/30 py-16 md:py-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -328,6 +329,6 @@ export default function BuildYourRV() {
           </div>
         </div>
       </section>
-    </Layout>
+    </>
   );
 }

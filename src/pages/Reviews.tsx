@@ -1,4 +1,3 @@
-import { Layout } from "@/components/layout/Layout";
 import { ReviewCard } from "@/components/reviews/ReviewCard";
 import { reviews } from "@/data/reviews";
 import { Star } from "lucide-react";
@@ -7,7 +6,7 @@ export default function Reviews() {
   const averageRating = reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length;
 
   return (
-    <Layout>
+    <>
       {/* Hero */}
       <section className="bg-secondary/30 py-16 md:py-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -56,6 +55,6 @@ export default function Reviews() {
           </div>
         </div>
       </section>
-    </Layout>
+    </>
   );
 }

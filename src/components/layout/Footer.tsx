@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { Facebook, Instagram, Youtube, Mail, Phone, MapPin } from "lucide-react";
 
 export function Footer() {
@@ -45,7 +45,7 @@ export function Footer() {
               {["Our Caravans", "Build Your RV", "Finance Options", "Customer Reviews", "About Us"].map((item) => (
                 <li key={item}>
                   <Link
-                    to={`/${item.toLowerCase().replace(/\s+/g, "-")}`}
+                    href={`/${item.toLowerCase().replace(/\s+/g, "-")}`}
                     className="text-primary-foreground/70 hover:text-accent transition-colors text-sm"
                   >
                     {item}
@@ -62,7 +62,7 @@ export function Footer() {
               {["Warranty Information", "Parts & Service", "Owner Resources", "FAQ", "Contact Us"].map((item) => (
                 <li key={item}>
                   <Link
-                    to="/contact"
+                    href="/contact"
                     className="text-primary-foreground/70 hover:text-accent transition-colors text-sm"
                   >
                     {item}
@@ -107,10 +107,10 @@ export function Footer() {
               © {new Date().getFullYear()} Equalizer RV. All rights reserved.
             </p>
             <div className="flex items-center gap-6">
-              <Link to="/privacy" className="text-primary-foreground/50 hover:text-accent transition-colors text-sm">
+              <Link href="/privacy" className="text-primary-foreground/50 hover:text-accent transition-colors text-sm">
                 Privacy Policy
               </Link>
-              <Link to="/terms" className="text-primary-foreground/50 hover:text-accent transition-colors text-sm">
+              <Link href="/terms" className="text-primary-foreground/50 hover:text-accent transition-colors text-sm">
                 Terms of Service
               </Link>
             </div>

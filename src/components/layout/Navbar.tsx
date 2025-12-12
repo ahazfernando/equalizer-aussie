@@ -1,4 +1,7 @@
-import { Link, useLocation } from "react-router-dom";
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -11,25 +14,32 @@ import {
 
 const navItems = [
   { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
   { label: "Our Caravans", href: "/caravans" },
   { label: "Build Your RV", href: "/build" },
   { label: "Finance", href: "/finance" },
   { label: "Reviews", href: "/reviews" },
-  { label: "About", href: "/about" },
   { label: "Gallery", href: "/gallery" },
   { label: "Contact", href: "/contact" },
 ];
 
+const modelItems = [
+  { label: "Cruzer", href: "/models/cruzer" },
+  { label: "Rebel", href: "/models/rebel" },
+  { label: "Rogue", href: "/models/rogue" },
+];
+
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const location = useLocation();
+  const pathname = usePathname();
+  const isModelPage = pathname?.startsWith("/models/");
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border/50">
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3">
+          <Link href="/" className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-lg bg-accent flex items-center justify-center">
               <span className="text-accent-foreground font-heading font-bold text-xl">E</span>
             </div>
@@ -45,12 +55,44 @@ export function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-8">
-            {navItems.slice(0, 6).map((item) => (
+            <Link
+              href="/"
+              className={`nav-link text-sm ${
+                pathname === "/" ? "active text-foreground" : ""
+              }`}
+            >
+              Home
+            </Link>
+            <Link
+              href="/about"
+              className={`nav-link text-sm ${
+                pathname === "/about" ? "active text-foreground" : ""
+              }`}
+            >
+              About
+            </Link>
+            <DropdownMenu>
+              <DropdownMenuTrigger className={`nav-link text-sm flex items-center gap-1 ${
+                isModelPage ? "active text-foreground" : ""
+              }`}>
+                Models <ChevronDown className="w-4 h-4" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start">
+                {modelItems.map((item) => (
+                  <DropdownMenuItem key={item.href} asChild>
+                    <Link href={item.href} className={pathname === item.href ? "bg-accent/10 text-accent" : ""}>
+                      {item.label}
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+            {navItems.slice(2, 6).map((item) => (
               <Link
                 key={item.href}
-                to={item.href}
+                href={item.href}
                 className={`nav-link text-sm ${
-                  location.pathname === item.href ? "active text-foreground" : ""
+                  pathname === item.href ? "active text-foreground" : ""
                 }`}
               >
                 {item.label}
@@ -63,7 +105,7 @@ export function Navbar() {
               <DropdownMenuContent align="end">
                 {navItems.slice(6).map((item) => (
                   <DropdownMenuItem key={item.href} asChild>
-                    <Link to={item.href}>{item.label}</Link>
+                    <Link href={item.href}>{item.label}</Link>
                   </DropdownMenuItem>
                 ))}
               </DropdownMenuContent>
@@ -72,12 +114,12 @@ export function Navbar() {
 
           {/* CTA Button */}
           <div className="hidden lg:flex items-center gap-4">
-            <Link to="/admin">
+            <Link href="/admin">
               <Button variant="ghost" size="sm">
                 Admin
               </Button>
             </Link>
-            <Link to="/contact">
+            <Link href="/contact">
               <Button className="bg-accent hover:bg-accent/90 text-accent-foreground">
                 Book a Viewing
               </Button>
@@ -101,12 +143,53 @@ export function Navbar() {
         {mobileMenuOpen && (
           <div className="lg:hidden py-4 border-t border-border animate-fade-in">
             <div className="flex flex-col gap-2">
-              {navItems.map((item) => (
+              <Link
+                href="/"
+                className={`px-4 py-3 rounded-lg transition-colors ${
+                  pathname === "/"
+                    ? "bg-accent/10 text-accent font-medium"
+                    : "hover:bg-secondary"
+                }`}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Home
+              </Link>
+              <Link
+                href="/about"
+                className={`px-4 py-3 rounded-lg transition-colors ${
+                  pathname === "/about"
+                    ? "bg-accent/10 text-accent font-medium"
+                    : "hover:bg-secondary"
+                }`}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                About
+              </Link>
+              <div className="px-4 py-2">
+                <p className="text-sm font-medium text-muted-foreground mb-2">Models</p>
+                <div className="flex flex-col gap-1 ml-4">
+                  {modelItems.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className={`px-4 py-2 rounded-lg transition-colors text-sm ${
+                        pathname === item.href
+                          ? "bg-accent/10 text-accent font-medium"
+                          : "hover:bg-secondary"
+                      }`}
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+              {navItems.slice(2).map((item) => (
                 <Link
                   key={item.href}
-                  to={item.href}
+                  href={item.href}
                   className={`px-4 py-3 rounded-lg transition-colors ${
-                    location.pathname === item.href
+                    pathname === item.href
                       ? "bg-accent/10 text-accent font-medium"
                       : "hover:bg-secondary"
                   }`}
@@ -116,12 +199,12 @@ export function Navbar() {
                 </Link>
               ))}
               <div className="mt-4 px-4 flex flex-col gap-2">
-                <Link to="/admin" onClick={() => setMobileMenuOpen(false)}>
+                <Link href="/admin" onClick={() => setMobileMenuOpen(false)}>
                   <Button variant="outline" className="w-full">
                     Admin Login
                   </Button>
                 </Link>
-                <Link to="/contact" onClick={() => setMobileMenuOpen(false)}>
+                <Link href="/contact" onClick={() => setMobileMenuOpen(false)}>
                   <Button className="w-full bg-accent hover:bg-accent/90 text-accent-foreground">
                     Book a Viewing
                   </Button>

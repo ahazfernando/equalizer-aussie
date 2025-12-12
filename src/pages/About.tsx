@@ -1,9 +1,7 @@
-import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Award, Users, Wrench, MapPin } from "lucide-react";
-import { Link } from "react-router-dom";
-import lifestyleImage1 from "@/assets/caravan-lifestyle-1.jpg";
-import caravanInterior from "@/assets/caravan-interior.jpg";
+import Link from "next/link";
+import Image from "next/image";
 
 const stats = [
   { value: "15+", label: "Years Experience" },
@@ -37,7 +35,7 @@ const values = [
 
 export default function About() {
   return (
-    <Layout>
+    <>
       {/* Hero */}
       <section className="bg-secondary/30 py-16 md:py-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -92,14 +90,16 @@ export default function About() {
               <p className="text-muted-foreground leading-relaxed">
                 Today, Equalizer RV caravans can be found exploring every corner of 
                 Australia – from the red heart of the outback to pristine coastal 
-                campgrounds. Our owners don't just buy a caravan; they join a 
+                campgrounds. Our owners don&apos;t just buy a caravan; they join a 
                 community of like-minded adventurers.
               </p>
             </div>
             <div className="relative">
-              <img
-                src={lifestyleImage1}
+              <Image
+                src="/images/caravan-lifestyle-1.jpg"
                 alt="Equalizer RV caravan in the Australian outback"
+                width={800}
+                height={600}
                 className="rounded-2xl w-full"
               />
             </div>
@@ -134,9 +134,11 @@ export default function About() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="order-2 lg:order-1">
-              <img
-                src={caravanInterior}
+              <Image
+                src="/images/caravan-interior.jpg"
                 alt="Premium caravan interior craftsmanship"
+                width={800}
+                height={600}
                 className="rounded-2xl w-full"
               />
             </div>
@@ -145,7 +147,7 @@ export default function About() {
                 Crafted in Melbourne
               </h2>
               <p className="text-muted-foreground leading-relaxed">
-                Our state-of-the-art manufacturing facility in Melbourne's south-east 
+                Our state-of-the-art manufacturing facility in Melbourne&apos;s south-east 
                 is where the magic happens. Here, skilled tradespeople bring together 
                 premium materials and precision engineering.
               </p>
@@ -154,7 +156,7 @@ export default function About() {
                 from locally-milled timber to European appliances – ensuring every 
                 Equalizer RV meets our exacting standards.
               </p>
-              <Link to="/contact">
+              <Link href="/contact">
                 <Button className="bg-accent hover:bg-accent/90 text-accent-foreground">
                   Visit Our Showroom
                   <ArrowRight className="w-4 h-4 ml-2" />
@@ -164,6 +166,6 @@ export default function About() {
           </div>
         </div>
       </section>
-    </Layout>
+    </>
   );
 }
