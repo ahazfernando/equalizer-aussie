@@ -1,11 +1,12 @@
 import { Layout } from "@/components/layout/Layout";
-import ModelSpecifications from "@/pages/ModelSpecifications";
+import ModelPageComponent from "@/pages/ModelPage";
 
 export default function CruzerPage() {
   return (
     <Layout>
-      <ModelSpecifications />
+      <ModelPageComponent modelId="cruzer" />
     </Layout>
   );
 }
+
 

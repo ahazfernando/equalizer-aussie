@@ -97,7 +97,7 @@ export default {
   			'3xl': '1.5rem'
   		},
   		boxShadow: {
-  			glow: '0 0 40px hsl(155 35% 42% / 0.2)'
+  			glow: '0 0 40px hsl(0 84% 60% / 0.2)'
   		},
   		keyframes: {
   			'accordion-down': {
@@ -153,6 +153,14 @@ export default {
   					opacity: '1',
   					transform: 'scale(1)'
   				}
+  			},
+  			'shimmer': {
+  				'0%': {
+  					transform: 'translateX(-100%)'
+  				},
+  				'100%': {
+  					transform: 'translateX(100%)'
+  				}
   			}
   		},
   		animation: {
@@ -161,7 +169,8 @@ export default {
   			'fade-up': 'fade-up 0.6s ease-out forwards',
   			'fade-in': 'fade-in 0.5s ease-out forwards',
   			'slide-in-right': 'slide-in-right 0.5s ease-out forwards',
-  			'scale-in': 'scale-in 0.4s ease-out forwards'
+  			'scale-in': 'scale-in 0.4s ease-out forwards',
+  			'shimmer': 'shimmer 3s ease-in-out infinite'
   		}
   	}
   },

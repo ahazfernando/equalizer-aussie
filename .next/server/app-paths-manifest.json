@@ -1,10 +1,7 @@
 {
-  "/reviews/page": "app/reviews/page.js",
-  "/finance/page": "app/finance/page.js",
-  "/contact/page": "app/contact/page.js",
-  "/admin/caravans/page": "app/admin/caravans/page.js",
-  "/admin/dashboard/page": "app/admin/dashboard/page.js",
-  "/admin/bookings/page": "app/admin/bookings/page.js",
-  "/admin/reviews/page": "app/admin/reviews/page.js",
-  "/admin/finance/page": "app/admin/finance/page.js"
+  "/page": "app/page.js",
+  "/about/page": "app/about/page.js",
+  "/build/page": "app/build/page.js",
+  "/caravans/page": "app/caravans/page.js",
+  "/models/cruzer/page": "app/models/cruzer/page.js"
 }

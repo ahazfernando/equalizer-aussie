@@ -4,6 +4,8 @@ import { ArrowRight, Shield, Wrench, Award, MapPin, Star, ChevronRight } from "l
 import { Button } from "@/components/ui/button";
 import { CaravanCard } from "@/components/caravans/CaravanCard";
 import { ReviewCard } from "@/components/reviews/ReviewCard";
+import { ModelSelector } from "@/components/models/ModelSelector";
+import { HeroHeader } from "@/components/home/HeroHeader";
 import { getFeaturedCaravans } from "@/data/caravans";
 import { reviews } from "@/data/reviews";
 
@@ -36,62 +38,11 @@ export default function Home() {
 
   return (
     <>
-      {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex items-center">
-        <div className="absolute inset-0">
-          <Image
-            src="/images/hero-caravan.jpg"
-            alt="Premium Equalizer RV Caravan in Australian landscape"
-            fill
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 hero-gradient" />
-        </div>
-        
-        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <div className="max-w-3xl space-y-8 animate-fade-up">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/20 backdrop-blur-sm border border-accent/30">
-              <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-              <span className="text-accent-foreground text-sm font-medium">
-                Australian Designed & Engineered
-              </span>
-            </div>
-            
-            <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-primary-foreground hero-text-shadow leading-tight">
-              Adventure Awaits.<br />
-              <span className="text-accent">Travel in Luxury.</span>
-            </h1>
-            
-            <p className="text-lg sm:text-xl text-primary-foreground/80 max-w-xl leading-relaxed">
-              Experience the freedom of the open road in a caravan built for Australian 
-              conditions. Premium quality, exceptional comfort, unforgettable journeys.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/caravans">
-                <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground px-8">
-                  Explore Our Range
-                  <ArrowRight className="w-5 h-5 ml-2" />
-                </Button>
-              </Link>
-              <Link href="/contact">
-                <Button size="lg" variant="outline" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 px-8">
-                  Book a Viewing
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
+      {/* Hero Header Section */}
+      <HeroHeader />
 
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-primary-foreground/60">
-          <span className="text-sm">Scroll to explore</span>
-          <div className="w-6 h-10 rounded-full border-2 border-current flex items-start justify-center p-2">
-            <div className="w-1.5 h-1.5 rounded-full bg-current animate-bounce" />
-          </div>
-        </div>
-      </section>
+      {/* Model Selector */}
+      <ModelSelector />
 
       {/* Trust Pillars */}
       <section className="py-16 bg-secondary/30">

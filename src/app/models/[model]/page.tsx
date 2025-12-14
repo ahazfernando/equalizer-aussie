@@ -1,11 +1,18 @@
 import { Layout } from "@/components/layout/Layout";
-import ModelSpecifications from "@/pages/ModelSpecifications";
+import ModelPageComponent from "@/pages/ModelPage";
 
-export default function ModelPage() {
+interface ModelPageProps {
+  params: Promise<{ model: string }>;
+}
+
+export default async function ModelPage({ params }: ModelPageProps) {
+  const { model } = await params;
+  
   return (
     <Layout>
-      <ModelSpecifications />
+      <ModelPageComponent modelId={model} />
     </Layout>
   );
 }
+
 
