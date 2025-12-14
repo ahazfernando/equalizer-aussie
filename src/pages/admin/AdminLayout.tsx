@@ -61,11 +61,11 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
           </div>
           <div className="px-4">
             <ThemeToggle />
-          </div>
+        </div>
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0 md:p-8 md:pt-4">
           {children}
-        </div>
+      </div>
       </SidebarInset>
     </SidebarProvider>
   );

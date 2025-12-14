@@ -55,3 +55,4 @@ export const ModelCard = ({ model, index = 0 }: ModelCardProps) => {
   );
 };
 
+

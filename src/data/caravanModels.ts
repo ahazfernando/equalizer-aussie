@@ -264,3 +264,4 @@ export function getAllCaravanModels(): CaravanModel[] {
   return caravanModels;
 }
 
+
