@@ -1,4 +1,4 @@
-# Welcome to your Lovable project
+# equalizer-aussie
 
 ## Project info
 
