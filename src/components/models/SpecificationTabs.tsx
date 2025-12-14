@@ -71,3 +71,4 @@ export const SpecificationTabs = ({ specifications }: SpecificationTabsProps) =>
 };
 
 
+
