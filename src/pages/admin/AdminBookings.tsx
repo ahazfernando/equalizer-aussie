@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { bookings } from "@/data/bookings";
+import { bookings, Booking } from "@/data/bookings";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Search, Calendar, CheckCircle, XCircle, Clock, Filter } from "lucide-react";

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { financeEnquiries } from "@/data/finance";
+import { financeEnquiries, FinanceEnquiry } from "@/data/finance";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Search, DollarSign, CheckCircle, XCircle, Clock, Filter } from "lucide-react";
