@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Menu, X, ChevronDown } from "lucide-react";
@@ -15,8 +16,8 @@ import {
 const navItems = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
-  { label: "Our Caravans", href: "/caravans" },
-  { label: "Build Your RV", href: "/build" },
+  // { label: "Our Caravans", href: "/caravans" },
+  // { label: "Build Your RV", href: "/build" },
   { label: "Finance", href: "/finance" },
   { label: "Reviews", href: "/reviews" },
   { label: "Gallery", href: "/gallery" },
@@ -39,18 +40,15 @@ export function Navbar() {
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-accent flex items-center justify-center">
-              <span className="text-accent-foreground font-heading font-bold text-xl">E</span>
-            </div>
-            <div className="flex flex-col">
-              <span className="font-heading font-bold text-lg text-foreground leading-tight">
-                Equalizer RV
-              </span>
-              <span className="text-xs text-muted-foreground leading-tight">
-                Australian Caravans
-              </span>
-            </div>
+          <Link href="/" className="flex items-center">
+            <Image
+              src="/mainlogo/EqualizerRV-1-2048x335.webp"
+              alt="Equalizer RV"
+              width={200}
+              height={33}
+              className="h-12 w-auto object-contain"
+              priority
+            />
           </Link>
 
           {/* Desktop Navigation */}

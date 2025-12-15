@@ -6,6 +6,7 @@ import { CaravanCard } from "@/components/caravans/CaravanCard";
 import { ReviewCard } from "@/components/reviews/ReviewCard";
 import { ModelSelector } from "@/components/models/ModelSelector";
 import { HeroHeader } from "@/components/home/HeroHeader";
+import { RecentBlogs } from "@/components/home/RecentBlogs";
 import { getFeaturedCaravans } from "@/data/caravans";
 import { reviews } from "@/data/reviews";
 
@@ -140,7 +141,7 @@ export default function Home() {
                 ))}
               </ul>
 
-              <Link href="/about">
+              <Link href="/about" className="inline-block mt-6">
                 <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
                   Learn Our Story
                   <ArrowRight className="w-5 h-5 ml-2" />
@@ -229,30 +230,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-accent text-accent-foreground">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="font-heading text-3xl sm:text-4xl font-bold mb-4">
-            Ready to Start Your Adventure?
-          </h2>
-          <p className="text-accent-foreground/80 max-w-2xl mx-auto mb-8">
-            Visit our showroom to experience the Equalizer difference in person. 
-            Our team is ready to help you find the perfect caravan for your lifestyle.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/contact">
-              <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground px-8">
-                Book a Viewing
-              </Button>
-            </Link>
-            <Link href="/build">
-              <Button size="lg" variant="outline" className="border-accent-foreground/30 text-accent-foreground hover:bg-accent-foreground/10 px-8">
-                Build Your Dream RV
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
+      {/* Recent Blogs Section */}
+      <RecentBlogs />
+
     </>
   );
 }

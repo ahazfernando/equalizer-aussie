@@ -3,11 +3,9 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, MapPin, Calendar, CalendarDays, CheckCircle2, Sparkles, Star, TrendingUp } from "lucide-react";
+import { ArrowRight, CheckCircle2, Sparkles, Star, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
 import {
   Select,
   SelectContent,
@@ -51,7 +49,6 @@ const stats = [
 
 export function HeroHeader() {
   const [selectedModel, setSelectedModel] = useState("rogue");
-  const [roundTrip, setRoundTrip] = useState(true);
 
   return (
     <section className="relative min-h-screen flex items-center bg-gradient-to-br from-background via-background to-muted/20 overflow-hidden">
@@ -219,129 +216,6 @@ export function HeroHeader() {
                   {/* Shine overlay */}
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Booking Form Section - Enhanced */}
-        <div className="mt-20 lg:mt-32 animate-fade-up" style={{ animationDelay: "300ms" }}>
-          <div className="relative group">
-            {/* Glow effect behind form */}
-            <div className="absolute -inset-1 bg-gradient-to-r from-accent/20 via-accent/10 to-accent/20 rounded-3xl blur-2xl opacity-75 group-hover:opacity-100 transition-opacity duration-500" />
-            
-            <div className="relative bg-card/90 backdrop-blur-xl border-2 border-border/50 rounded-3xl p-8 lg:p-10 shadow-2xl">
-              <div className="flex flex-col lg:flex-row lg:items-end gap-8">
-                {/* Filter Toggle - Enhanced */}
-                <div className="flex items-center gap-4">
-                  <Label className="text-base font-bold text-foreground">Filter:</Label>
-                  <div className="flex items-center gap-2 bg-muted/80 backdrop-blur-sm rounded-full p-1.5 border border-border/50">
-                    <button className="px-5 py-2.5 rounded-full bg-gradient-to-r from-accent to-accent/90 text-accent-foreground text-sm font-bold shadow-lg transition-all hover:scale-105">
-                      With Driver
-                    </button>
-                    <button className="px-5 py-2.5 rounded-full text-muted-foreground text-sm font-semibold hover:text-foreground transition-colors">
-                      Without Driver
-                    </button>
-                  </div>
-                </div>
-
-                {/* Form Fields - Enhanced */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 flex-1">
-                  {/* Departure */}
-                  <div className="space-y-2">
-                    <Label className="text-xs font-bold text-foreground uppercase tracking-wider">
-                      Departure
-                    </Label>
-                    <div className="relative group/input">
-                      <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-accent group-hover/input:text-accent/80 transition-colors" />
-                      <Select>
-                        <SelectTrigger className="pl-12 h-14 bg-background border-2 hover:border-accent/50 transition-colors font-medium">
-                          <SelectValue placeholder="City, Place" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="sydney">Sydney, NSW</SelectItem>
-                          <SelectItem value="melbourne">Melbourne, VIC</SelectItem>
-                          <SelectItem value="brisbane">Brisbane, QLD</SelectItem>
-                          <SelectItem value="perth">Perth, WA</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  </div>
-
-                  {/* Return Location */}
-                  <div className="space-y-2">
-                    <Label className="text-xs font-bold text-foreground uppercase tracking-wider">
-                      Return Location
-                    </Label>
-                    <div className="relative group/input">
-                      <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-accent group-hover/input:text-accent/80 transition-colors" />
-                      <Select>
-                        <SelectTrigger className="pl-12 h-14 bg-background border-2 hover:border-accent/50 transition-colors font-medium">
-                          <SelectValue placeholder="City, Place" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="sydney">Sydney, NSW</SelectItem>
-                          <SelectItem value="melbourne">Melbourne, VIC</SelectItem>
-                          <SelectItem value="brisbane">Brisbane, QLD</SelectItem>
-                          <SelectItem value="perth">Perth, WA</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  </div>
-
-                  {/* Pick-Up Time */}
-                  <div className="space-y-2">
-                    <Label className="text-xs font-bold text-foreground uppercase tracking-wider">
-                      Pick-Up Time
-                    </Label>
-                    <div className="relative group/input">
-                      <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-accent group-hover/input:text-accent/80 transition-colors" />
-                      <Input
-                        type="date"
-                        className="pl-12 h-14 bg-background border-2 hover:border-accent/50 transition-colors font-medium"
-                        defaultValue="2025-01-09"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Return Time */}
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <Label className="text-xs font-bold text-foreground uppercase tracking-wider">
-                        Return Time
-                      </Label>
-                      <div className="flex items-center gap-2">
-                        <Label htmlFor="round-trip" className="text-xs font-semibold text-muted-foreground">
-                          Round-Trip
-                        </Label>
-                        <Switch
-                          id="round-trip"
-                          checked={roundTrip}
-                          onCheckedChange={setRoundTrip}
-                          className="data-[state=checked]:bg-accent"
-                        />
-                      </div>
-                    </div>
-                    <div className="relative group/input">
-                      <CalendarDays className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-accent group-hover/input:text-accent/80 transition-colors" />
-                      <Input
-                        type="date"
-                        className="pl-12 h-14 bg-background border-2 hover:border-accent/50 transition-colors font-medium disabled:opacity-50"
-                        defaultValue="2025-01-12"
-                        disabled={!roundTrip}
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Book Now Button - Enhanced */}
-                <Button
-                  size="lg"
-                  className="bg-gradient-to-r from-accent to-accent/90 hover:from-accent/90 hover:to-accent text-accent-foreground px-10 h-14 lg:h-16 text-lg font-bold shadow-2xl shadow-accent/30 hover:shadow-accent/40 hover:scale-105 transition-all duration-300 whitespace-nowrap"
-                >
-                  Book Now
-                  <ArrowRight className="w-5 h-5 ml-2" />
-                </Button>
               </div>
             </div>
           </div>

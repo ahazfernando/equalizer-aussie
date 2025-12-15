@@ -23,6 +23,7 @@ const navItems = [
   { label: "Caravans", href: "/admin/caravans" },
   { label: "Bookings", href: "/admin/bookings" },
   { label: "Reviews", href: "/admin/reviews" },
+  { label: "Blogs", href: "/admin/blogs" },
   { label: "Finance", href: "/admin/finance" },
 ];
 

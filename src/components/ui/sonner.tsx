@@ -1,15 +1,25 @@
+"use client";
+
 import { CircleCheck, Info, LoaderCircle, OctagonX, TriangleAlert } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Toaster as Sonner } from "sonner";
+import { useEffect, useState } from "react";
 
 type ToasterProps = React.ComponentProps<typeof Sonner>;
 
 const Toaster = ({ ...props }: ToasterProps) => {
-  const { theme = "system" } = useTheme();
+  const { theme, systemTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const currentTheme = mounted ? (theme === "system" ? systemTheme : theme) : "light";
 
   return (
     <Sonner
-      theme={theme as ToasterProps["theme"]}
+      theme={currentTheme as ToasterProps["theme"]}
       className="toaster group"
       icons={{
         success: <CircleCheck className="h-4 w-4" />,

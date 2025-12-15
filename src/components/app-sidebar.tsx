@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Caravan, Calendar, Star, DollarSign, LogOut, Moon, Sun } from "lucide-react";
+import { LayoutDashboard, Caravan, Calendar, Star, DollarSign, LogOut, Moon, Sun, FileText } from "lucide-react";
 import { useTheme } from "next-themes";
 import {
   Sidebar,
@@ -24,6 +24,7 @@ const navItems = [
   { icon: Caravan, label: "Caravans", href: "/admin/caravans" },
   { icon: Calendar, label: "Bookings", href: "/admin/bookings" },
   { icon: Star, label: "Reviews", href: "/admin/reviews" },
+  { icon: FileText, label: "Blogs", href: "/admin/blogs" },
   { icon: DollarSign, label: "Finance", href: "/admin/finance" },
 ];
 

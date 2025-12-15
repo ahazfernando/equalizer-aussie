@@ -66,7 +66,7 @@ export default async function Blog() {
 
   return (
     <Layout>
-      <BlogPageClient articles={articles} />
+      <BlogPageClient allArticles={articles} />
     </Layout>
   );
 }

@@ -7,7 +7,16 @@ import { Toaster } from "@/components/ui/sonner";
 import { useState } from "react";
 
 export function Providers({ children }: { children: React.ReactNode }) {
-  const [queryClient] = useState(() => new QueryClient());
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            staleTime: 60 * 1000,
+          },
+        },
+      })
+  );
 
   return (
     <ThemeProvider
@@ -16,12 +25,12 @@ export function Providers({ children }: { children: React.ReactNode }) {
       enableSystem
       disableTransitionOnChange
     >
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        {children}
-      </TooltipProvider>
-    </QueryClientProvider>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <Toaster />
+          {children}
+        </TooltipProvider>
+      </QueryClientProvider>
     </ThemeProvider>
   );
 }

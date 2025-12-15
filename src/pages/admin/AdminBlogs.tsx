@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, Timestamp } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { Article } from "@/types/article";
@@ -28,8 +28,106 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { toast } from "sonner";
-import { Trash2, Edit, Plus, Loader2 } from "lucide-react";
+import { Trash2, Edit, Plus, Loader2, Upload, X, Image as ImageIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import Image from "next/image";
+import { Skeleton } from "@/components/ui/skeleton";
+
+// Admin Blog Card Component
+interface AdminBlogCardProps {
+  blog: Article;
+  formatDate: (article: Article) => string;
+  getValidImageUrl: (imageURL: string) => string;
+  onEdit: (blog: Article) => void;
+  onDelete: (id: string) => void;
+}
+
+const AdminBlogCard: React.FC<AdminBlogCardProps> = ({ 
+  blog, 
+  formatDate, 
+  getValidImageUrl, 
+  onEdit, 
+  onDelete 
+}) => {
+  const [imageLoading, setImageLoading] = useState(true);
+  const formattedDate = formatDate(blog);
+
+  return (
+    <Card className="flex flex-col overflow-hidden">
+      <div className="relative w-full aspect-[16/9] overflow-hidden">
+        {imageLoading && (
+          <Skeleton className="absolute inset-0 w-full h-full" />
+        )}
+        <Image
+          src={getValidImageUrl(blog.imageURL)}
+          alt={blog.title}
+          fill
+          className="object-cover"
+          onLoad={() => setImageLoading(false)}
+          onError={() => setImageLoading(false)}
+        />
+      </div>
+      <CardContent className="pt-6 px-6 pb-6 flex-grow flex flex-col">
+        <p className="text-sm text-gray-500 mb-1">{formattedDate}</p>
+        <h3 className="text-xl font-bold text-black mb-3 line-clamp-2 leading-tight">
+          {blog.title}
+        </h3>
+        <p className="text-base text-gray-700 mb-4 flex-grow line-clamp-3 leading-relaxed">
+          {blog.excerpt}
+        </p>
+        {blog.tags && blog.tags.length > 0 && (
+          <div className="flex flex-wrap gap-2 mb-4">
+            {blog.tags.slice(0, 3).map(tag => (
+              <span
+                key={tag}
+                className="text-sm px-3 py-1 rounded-md"
+                style={{ 
+                  backgroundColor: '#F1F5F9', 
+                  color: '#000000',
+                  fontSize: '14px'
+                }}
+              >
+                {tag}
+              </span>
+            ))}
+            {blog.tags.length > 3 && (
+              <span
+                className="text-sm px-3 py-1 rounded-md"
+                style={{ 
+                  backgroundColor: '#F1F5F9', 
+                  color: '#000000',
+                  fontSize: '14px'
+                }}
+              >
+                +{blog.tags.length - 3}
+              </span>
+            )}
+          </div>
+        )}
+        <div className="flex items-center gap-2 mt-auto">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => onEdit(blog)}
+            className="flex-1"
+          >
+            <Edit className="h-4 w-4 mr-1" />
+            Edit
+          </Button>
+          <Button
+            variant="destructive"
+            size="sm"
+            onClick={() => onDelete(blog.id)}
+            className="flex-1"
+          >
+            <Trash2 className="h-4 w-4 mr-1" />
+            Delete
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
 
 export default function AdminBlogs() {
   const [blogs, setBlogs] = useState<Article[]>([]);
@@ -39,6 +137,12 @@ export default function AdminBlogs() {
   const [deletingBlogId, setDeletingBlogId] = useState<string | null>(null);
   const [editingBlog, setEditingBlog] = useState<Article | null>(null);
   const [tagInput, setTagInput] = useState("");
+  const [uploadingBlogImage, setUploadingBlogImage] = useState(false);
+  const [uploadingAvatar, setUploadingAvatar] = useState(false);
+  const [blogImagePreview, setBlogImagePreview] = useState<string | null>(null);
+  const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
+  const [blogImageFile, setBlogImageFile] = useState<File | null>(null);
+  const [avatarFile, setAvatarFile] = useState<File | null>(null);
 
   const [blogForm, setBlogForm] = useState({
     slug: "",
@@ -72,6 +176,47 @@ export default function AdminBlogs() {
       return value;
     }
     return '';
+  };
+
+  // Format date helper
+  const formatDate = (article: Article): string => {
+    const dateValue = article.lastUpdated || article.createdAt || article.date;
+    if (dateValue && typeof (dateValue as Timestamp).toDate === 'function') {
+      const date = (dateValue as Timestamp).toDate();
+      return date.toLocaleDateString('en-GB', { 
+        day: 'numeric', 
+        month: 'short', 
+        year: 'numeric' 
+      });
+    }
+    if (typeof dateValue === 'string') {
+      const d = new Date(dateValue);
+      if (!isNaN(d.getTime())) {
+        return d.toLocaleDateString('en-GB', { 
+          day: 'numeric', 
+          month: 'short', 
+          year: 'numeric' 
+        });
+      }
+    }
+    return 'Date not available';
+  };
+
+  // Get valid image URL helper
+  const getValidImageUrl = (imageURL: string): string => {
+    if (!imageURL || imageURL.trim() === '') {
+      return '/blogs/blog1.png';
+    }
+    
+    try {
+      new URL(imageURL);
+      return imageURL;
+    } catch {
+      if (imageURL.startsWith('/')) {
+        return imageURL;
+      }
+      return `/blogs/${imageURL}`;
+    }
   };
 
   const loadBlogs = async () => {
@@ -160,6 +305,8 @@ export default function AdminBlogs() {
         authorAvatarURL: blog.author?.avatarURL || '',
         isPopular: blog.isPopular || false,
       });
+      setBlogImagePreview(blog.imageURL || null);
+      setAvatarPreview(blog.author?.avatarURL || null);
     } else {
       setEditingBlog(null);
       setBlogForm({
@@ -173,7 +320,11 @@ export default function AdminBlogs() {
         authorAvatarURL: "",
         isPopular: false,
       });
+      setBlogImagePreview(null);
+      setAvatarPreview(null);
     }
+    setBlogImageFile(null);
+    setAvatarFile(null);
     setIsDialogOpen(true);
   };
 
@@ -192,6 +343,134 @@ export default function AdminBlogs() {
       isPopular: false,
     });
     setTagInput("");
+    setBlogImagePreview(null);
+    setAvatarPreview(null);
+    setBlogImageFile(null);
+    setAvatarFile(null);
+    setUploadingBlogImage(false);
+    setUploadingAvatar(false);
+  };
+
+  const handleBlogImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      toast.error("Please select an image file");
+      return;
+    }
+
+    // Validate file size (max 10MB)
+    if (file.size > 10 * 1024 * 1024) {
+      toast.error("Image size must be less than 10MB");
+      return;
+    }
+
+    setBlogImageFile(file);
+    
+    // Create preview
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setBlogImagePreview(reader.result as string);
+    };
+    reader.readAsDataURL(file);
+
+    // Upload to Cloudinary via API route
+    setUploadingBlogImage(true);
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('folder', 'digital assets/blogs');
+
+      const response = await fetch('/api/cloudinary/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Upload failed');
+      }
+
+      setBlogForm({ ...blogForm, imageURL: data.url });
+      toast.success("Blog image uploaded successfully");
+    } catch (error: any) {
+      console.error('Error uploading blog image:', error);
+      toast.error(error.message || "Failed to upload blog image");
+      setBlogImagePreview(null);
+      setBlogImageFile(null);
+    } finally {
+      setUploadingBlogImage(false);
+    }
+  };
+
+  const handleAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      toast.error("Please select an image file");
+      return;
+    }
+
+    // Validate file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error("Image size must be less than 5MB");
+      return;
+    }
+
+    setAvatarFile(file);
+    
+    // Create preview
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setAvatarPreview(reader.result as string);
+    };
+    reader.readAsDataURL(file);
+
+    // Upload to Cloudinary via API route
+    setUploadingAvatar(true);
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('folder', 'digital assets/avatars');
+
+      const response = await fetch('/api/cloudinary/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Upload failed');
+      }
+
+      setBlogForm({ ...blogForm, authorAvatarURL: data.url });
+      toast.success("Author avatar uploaded successfully");
+    } catch (error: any) {
+      console.error('Error uploading avatar:', error);
+      toast.error(error.message || "Failed to upload author avatar");
+      setAvatarPreview(null);
+      setAvatarFile(null);
+    } finally {
+      setUploadingAvatar(false);
+    }
+  };
+
+  const removeBlogImage = () => {
+    setBlogImagePreview(null);
+    setBlogImageFile(null);
+    setBlogForm({ ...blogForm, imageURL: '' });
+  };
+
+  const removeAvatar = () => {
+    setAvatarPreview(null);
+    setAvatarFile(null);
+    setBlogForm({ ...blogForm, authorAvatarURL: '' });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -290,48 +569,14 @@ export default function AdminBlogs() {
       ) : (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {blogs.map((blog) => (
-            <Card key={blog.id}>
-              <CardHeader>
-                <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <CardTitle className="line-clamp-2">{blog.title}</CardTitle>
-                    <CardDescription className="mt-2 line-clamp-2">
-                      {blog.excerpt}
-                    </CardDescription>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="flex flex-wrap gap-2">
-                    {blog.tags?.slice(0, 3).map(tag => (
-                      <Badge key={tag} variant="secondary">{tag}</Badge>
-                    ))}
-                    {blog.tags && blog.tags.length > 3 && (
-                      <Badge variant="outline">+{blog.tags.length - 3}</Badge>
-                    )}
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handleOpenDialog(blog)}
-                    >
-                      <Edit className="h-4 w-4 mr-1" />
-                      Edit
-                    </Button>
-                    <Button
-                      variant="destructive"
-                      size="sm"
-                      onClick={() => handleDeleteClick(blog.id)}
-                    >
-                      <Trash2 className="h-4 w-4 mr-1" />
-                      Delete
-                    </Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            <AdminBlogCard
+              key={blog.id}
+              blog={blog}
+              formatDate={formatDate}
+              getValidImageUrl={getValidImageUrl}
+              onEdit={handleOpenDialog}
+              onDelete={handleDeleteClick}
+            />
           ))}
         </div>
       )}
@@ -395,15 +640,6 @@ export default function AdminBlogs() {
 
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="imageURL">Image URL</Label>
-                <Input
-                  id="imageURL"
-                  value={blogForm.imageURL}
-                  onChange={(e) => setBlogForm({ ...blogForm, imageURL: e.target.value })}
-                  placeholder="/blogs/image.png or https://example.com/image.jpg"
-                />
-              </div>
-              <div className="space-y-2">
                 <Label htmlFor="authorName">Author Name *</Label>
                 <Input
                   id="authorName"
@@ -415,14 +651,128 @@ export default function AdminBlogs() {
               </div>
             </div>
 
+            {/* Blog Image Upload */}
             <div className="space-y-2">
-              <Label htmlFor="authorAvatarURL">Author Avatar URL</Label>
-              <Input
-                id="authorAvatarURL"
-                value={blogForm.authorAvatarURL}
-                onChange={(e) => setBlogForm({ ...blogForm, authorAvatarURL: e.target.value })}
-                placeholder="https://example.com/avatar.jpg"
-              />
+              <Label htmlFor="blogImage">Blog Image</Label>
+              <div className="space-y-3">
+                {blogImagePreview ? (
+                  <div className="relative w-full h-48 rounded-lg border border-border overflow-hidden">
+                    <img
+                      src={blogImagePreview}
+                      alt="Blog preview"
+                      className="w-full h-full object-cover"
+                    />
+                    <Button
+                      type="button"
+                      variant="destructive"
+                      size="sm"
+                      className="absolute top-2 right-2"
+                      onClick={removeBlogImage}
+                    >
+                      <X className="h-4 w-4" />
+                    </Button>
+                  </div>
+                ) : (
+                  <div className="border-2 border-dashed border-border rounded-lg p-6">
+                    <label
+                      htmlFor="blogImage"
+                      className="flex flex-col items-center justify-center cursor-pointer hover:bg-secondary/50 transition-colors rounded-lg p-4"
+                    >
+                      {uploadingBlogImage ? (
+                        <Loader2 className="h-8 w-8 animate-spin text-muted-foreground mb-2" />
+                      ) : (
+                        <ImageIcon className="h-8 w-8 text-muted-foreground mb-2" />
+                      )}
+                      <span className="text-sm text-muted-foreground mb-1">
+                        {uploadingBlogImage ? 'Uploading...' : 'Click to upload blog image'}
+                      </span>
+                      <span className="text-xs text-muted-foreground">
+                        PNG, JPG, WEBP up to 10MB
+                      </span>
+                      <input
+                        id="blogImage"
+                        type="file"
+                        accept="image/*"
+                        onChange={handleBlogImageChange}
+                        className="hidden"
+                        disabled={uploadingBlogImage}
+                      />
+                    </label>
+                  </div>
+                )}
+                <div className="flex items-center gap-2">
+                  <Input
+                    value={blogForm.imageURL}
+                    onChange={(e) => setBlogForm({ ...blogForm, imageURL: e.target.value })}
+                    placeholder="Or enter image URL"
+                    className="flex-1"
+                  />
+                  {blogForm.imageURL && (
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setBlogImagePreview(blogForm.imageURL)}
+                    >
+                      Preview
+                    </Button>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Author Avatar Upload */}
+            <div className="space-y-2">
+              <Label htmlFor="authorAvatar">Author Avatar</Label>
+              <div className="space-y-3">
+                {avatarPreview ? (
+                  <div className="relative w-32 h-32 rounded-full border border-border overflow-hidden">
+                    <img
+                      src={avatarPreview}
+                      alt="Avatar preview"
+                      className="w-full h-full object-cover"
+                    />
+                    <Button
+                      type="button"
+                      variant="destructive"
+                      size="sm"
+                      className="absolute top-0 right-0 rounded-full h-6 w-6 p-0"
+                      onClick={removeAvatar}
+                    >
+                      <X className="h-3 w-3" />
+                    </Button>
+                  </div>
+                ) : (
+                  <div className="border-2 border-dashed border-border rounded-full w-32 h-32 flex items-center justify-center">
+                    <label
+                      htmlFor="authorAvatar"
+                      className="flex flex-col items-center justify-center cursor-pointer hover:bg-secondary/50 transition-colors rounded-full w-full h-full"
+                    >
+                      {uploadingAvatar ? (
+                        <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+                      ) : (
+                        <ImageIcon className="h-6 w-6 text-muted-foreground" />
+                      )}
+                      <span className="text-xs text-muted-foreground mt-1">
+                        {uploadingAvatar ? 'Uploading...' : 'Upload'}
+                      </span>
+                      <input
+                        id="authorAvatar"
+                        type="file"
+                        accept="image/*"
+                        onChange={handleAvatarChange}
+                        className="hidden"
+                        disabled={uploadingAvatar}
+                      />
+                    </label>
+                  </div>
+                )}
+                <Input
+                  value={blogForm.authorAvatarURL}
+                  onChange={(e) => setBlogForm({ ...blogForm, authorAvatarURL: e.target.value })}
+                  placeholder="Or enter avatar URL"
+                />
+              </div>
             </div>
 
             <div className="space-y-2">
